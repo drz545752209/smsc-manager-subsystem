@@ -33,6 +33,7 @@ public class BizManageController {
 		ModelAndView mv=new ModelAndView();
 		mv.setViewName("bizproduct.html");
 		mv.addObject("productList",productList);
+		System.out.println(111);
 		
 		return mv;
 	}
