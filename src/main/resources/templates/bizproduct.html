@@ -1,65 +1,69 @@
 <!DOCTYPE>
-<html>
+<html xmlns:javascript="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>商品管理</title>
-<link type="text/css" rel="stylesheet" href="/css/style1.css" />
-<script type="text/javascript" src="/js/jquery.js"></script>
-<script>
-    function updata(id){
-    	alert("修改") 
-    }
-    function del(id){
-    	alert("delete")
-    }
-    function batchDel(){
-    	
-    }
-    function downShelf(){
-    	
-    }
-    function upShelf(){
-    	
-    }
-</script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>商品管理</title>
+    <link type="text/css" rel="stylesheet" href="/css/style1.css"/>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script>
+        function updata(id) {
+            alert("修改")
+        }
+
+        function del(id) {
+            alert("delete")
+        }
+
+        function batchDel() {
+
+        }
+
+        function downShelf() {
+
+        }
+
+        function upShelf() {
+
+        }
+    </script>
 </head>
 <html xmlns:th="http://www.thymeleaf.org">
-<div>
-<a href="" class="button"><small class="icon settings"></small><span>上架</span></a>
-<a href="http://google.com" class="button"><small class="icon settings"></small><span>下架</span></a>
-<a href="http://google.com" class="button"><small class="icon settings"></small><span>删除</span></a>
-</div>
-<div id="table" class="help">
-	<div class="col w10 last">
-		<div class="content">
-			<table>
-				<tr align=LEFT>
-					<th width=14% height=14%><input type="checkbox"
-						id="allCheckBox" onclick="selectAll()" /></th>
-					<th align=LEFT width=14% height=14%>商品图片</th>
-					<th align=LEFT width=14% height=14%>商品名称</th>
-					<th align=LEFT width=14% height=14%>商品类型</th>
-					<th align=LEFT width=14% height=14%>商品价格</th>
-					<th align=LEFT width=14% height=14%>操作</th>
-				</tr>
-				<tr align=LEFT th:each="product: ${productList}">
-				    <td align=LEFT width=14% height=14% class="checkbox"><input type="checkbox" id="allCheckBox" /></td>
-				    <td background="${product.imgUrl}" align=LEFT width=14% height=14%></td>
-				    <td th:text="${product.name}" align=LEFT width=14% height=14%></td>
-				    <td th:text="${product.type}" align=LEFT width=14% height=14%></td>
-				    <td th:text="${product.price}" align=LEFT width=14% height=14%></td>
-				    <td>
-				    <a href="javascript:updata(${product.id})" class="button green">
-				    <span>修改</span>
-				    </a> 
-				    <a href="javascript:del(${product.id})" class="button red">
-				    <span>删除</span>
-				    </a>
-				    </td>
-				</tr>
-
-			</table>
-		</div>
-	</div>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <button type="button" class="btn btn-default btn-primary" th:onclick="'upShelf();'">上架</button>
+            <button type="button" class="btn btn-default btn-primary" th:onclick="'downShelf();'">下架</button>
+            <button type="button" class="btn btn-default btn-danger">删除</button>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <div class="checkbox">
+                        <input type="checkbox" id="select-all">
+                    </div>
+                    <th>商品图片</th>
+                    <th>商品名称</th>
+                    <th>商品类型</th>
+                    <th>商品价格</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product: ${productList}">
+                    <div class="checkbox">
+                        <input type="checkbox" th:id="${product.id}">
+                    </div>
+                    <td th:background="${product.imgUrl}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.type}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td>
+                        <button type="button" class="btn btn-default btn-warning" th:action="@{/bizManage/update}" th:object="${product}">修改</button>
+                        <button type="button" class="btn btn-default btn-danger" th:action="@{/bizManage/delete}" th:object="${product}">删除</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </html>
