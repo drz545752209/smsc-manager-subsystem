@@ -44,9 +44,9 @@ public class ESUtils {
 		CreateIndexRequest request = new CreateIndexRequest(indexName);
 		request.settings(Settings.builder().put("index.number_of_shards", 1).put("index.number_of_replicas", 1))
 				.mapping(typeName, "content", "type=text,analyzer=ik_max_word")
-				// ������ʱ
+				// ???????
 				.timeout(TimeValue.timeValueMinutes(2))
-				// ���ӵ����ڵ㳬ʱʱ��
+				// ??????????????
 				.masterNodeTimeout(TimeValue.timeValueMinutes(1));
 		CreateIndexResponse indexResponse = client.indices().create(request);
 		boolean isAck = indexResponse.isAcknowledged();
