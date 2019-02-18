@@ -4,7 +4,7 @@
   <cache type="org.mybatis.caches.redis.RedisCache" />
   <resultMap id="BaseResultMap" type="com.deng.mall.domain.Product">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="store_id" jdbcType="INTEGER" property="storeId" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sales_volume" jdbcType="BIGINT" property="salesVolume" />
     <result column="img" jdbcType="VARCHAR" property="img" />
@@ -12,6 +12,8 @@
     <result column="price" jdbcType="INTEGER" property="price" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="is_show" jdbcType="BIT" property="isShow" />
+    <result column="is_del" jdbcType="BIT" property="isDel" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, store_id, `name`, sales_volume, img, `type`, price, description, `comment`
+    id, store_name, `name`, sales_volume, img, `type`, price, description, `comment`, 
+    is_show, is_del
   </sql>
   <select id="selectByExample" parameterType="com.deng.mall.domain.ProductExample" resultMap="BaseResultMap">
     select
@@ -113,14 +116,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.deng.mall.domain.Product">
-    insert into product (id, store_id, `name`, 
+    insert into product (id, store_name, `name`, 
       sales_volume, img, `type`, 
-      price, description, `comment`
-      )
-    values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      price, description, `comment`, 
+      is_show, is_del)
+    values (#{id,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{salesVolume,jdbcType=BIGINT}, #{img,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{price,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}
-      )
+      #{price,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, 
+      #{isShow,jdbcType=BIT}, #{isDel,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.deng.mall.domain.Product">
     insert into product
@@ -128,8 +131,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="storeId != null">
-        store_id,
+      <if test="storeName != null">
+        store_name,
       </if>
       <if test="name != null">
         `name`,
@@ -152,13 +155,19 @@
       <if test="comment != null">
         `comment`,
       </if>
+      <if test="isShow != null">
+        is_show,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="storeId != null">
-        #{storeId,jdbcType=INTEGER},
+      <if test="storeName != null">
+        #{storeName,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -181,6 +190,12 @@
       <if test="comment != null">
         #{comment,jdbcType=VARCHAR},
       </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=BIT},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=BIT},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.deng.mall.domain.ProductExample" resultType="java.lang.Long">
@@ -195,8 +210,8 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.storeId != null">
-        store_id = #{record.storeId,jdbcType=INTEGER},
+      <if test="record.storeName != null">
+        store_name = #{record.storeName,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null">
         `name` = #{record.name,jdbcType=VARCHAR},
@@ -219,6 +234,12 @@
       <if test="record.comment != null">
         `comment` = #{record.comment,jdbcType=VARCHAR},
       </if>
+      <if test="record.isShow != null">
+        is_show = #{record.isShow,jdbcType=BIT},
+      </if>
+      <if test="record.isDel != null">
+        is_del = #{record.isDel,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -227,14 +248,16 @@
   <update id="updateByExample" parameterType="map">
     update product
     set id = #{record.id,jdbcType=INTEGER},
-      store_id = #{record.storeId,jdbcType=INTEGER},
+      store_name = #{record.storeName,jdbcType=VARCHAR},
       `name` = #{record.name,jdbcType=VARCHAR},
       sales_volume = #{record.salesVolume,jdbcType=BIGINT},
       img = #{record.img,jdbcType=VARCHAR},
       `type` = #{record.type,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=INTEGER},
       description = #{record.description,jdbcType=VARCHAR},
-      `comment` = #{record.comment,jdbcType=VARCHAR}
+      `comment` = #{record.comment,jdbcType=VARCHAR},
+      is_show = #{record.isShow,jdbcType=BIT},
+      is_del = #{record.isDel,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -242,8 +265,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.deng.mall.domain.Product">
     update product
     <set>
-      <if test="storeId != null">
-        store_id = #{storeId,jdbcType=INTEGER},
+      <if test="storeName != null">
+        store_name = #{storeName,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
@@ -266,19 +289,27 @@
       <if test="comment != null">
         `comment` = #{comment,jdbcType=VARCHAR},
       </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=BIT},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.deng.mall.domain.Product">
     update product
-    set store_id = #{storeId,jdbcType=INTEGER},
+    set store_name = #{storeName,jdbcType=VARCHAR},
       `name` = #{name,jdbcType=VARCHAR},
       sales_volume = #{salesVolume,jdbcType=BIGINT},
       img = #{img,jdbcType=VARCHAR},
       `type` = #{type,jdbcType=VARCHAR},
       price = #{price,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
-      `comment` = #{comment,jdbcType=VARCHAR}
+      `comment` = #{comment,jdbcType=VARCHAR},
+      is_show = #{isShow,jdbcType=BIT},
+      is_del = #{isDel,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

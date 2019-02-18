@@ -1,6 +1,5 @@
 package com.deng.mall.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.deng.mall.domain.Product;
@@ -10,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.jws.WebParam;
 
 
 @Controller
@@ -40,6 +41,17 @@ public class BizManageController {
         return mv;
     }
 
+    @RequestMapping("/getProductForSave")
+    public  ModelAndView getProductForSave(String saveId){
+        ModelAndView mv=new ModelAndView();
+        Product product;
+        product = productService.getProductById(saveId);
+        mv.addObject("product",product);
+        mv.setViewName("bizproduct.html");
+
+        return mv;
+    }
+
 
     @RequestMapping(value = "/batchDelete")
     public String batchDelete(String idStr) {
@@ -63,7 +75,6 @@ public class BizManageController {
 
     @RequestMapping(value = "/downShelf")
     public String downShelf(String idStr) {
-
         return "bizproduct.html";
     }
 
@@ -72,9 +83,5 @@ public class BizManageController {
         return "bizproduct.html";
     }
 
-    @RequestMapping(value = "/showProductByType")
-    public ModelAndView showProductByType(String productType) {
-        return null;
-    }
 
 }

@@ -19,6 +19,9 @@ public class ProductService {
     public List<Product> getAllProduct(){
         List<Product> productList;
         ProductExample productExample=new ProductExample();
+        ProductExample.Criteria criteria=productExample.createCriteria();
+        criteria.andIsDelEqualTo(true);
+        productExample.or(criteria);
         productList=productDAO.selectByExample(productExample);
         return  productList;
     }
@@ -28,9 +31,19 @@ public class ProductService {
         ProductExample productExample=new ProductExample();
         ProductExample.Criteria criteria=productExample.createCriteria();
         criteria.andTypeEqualTo(type);
+        criteria.andIsDelEqualTo(true);
         productExample.or(criteria);
         productList=productDAO.selectByExample(productExample);
         return  productList;
+    }
+
+    public Product getProductById(String id){
+        Product product=productDAO.selectByPrimaryKey(Integer.valueOf(id));
+        if (product.getIsDel()){
+            return null;
+        }else {
+            return product;
+        }
     }
 
     public void batchDeleteProduct(List<Integer> ids){
@@ -41,5 +54,6 @@ public class ProductService {
         int deleteResult=productDAO.deleteByExample(productExample);
         logger.info("batch delete product num []",deleteResult);
     }
+
 
 }

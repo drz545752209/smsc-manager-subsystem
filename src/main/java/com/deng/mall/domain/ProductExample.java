@@ -184,63 +184,73 @@ public class ProductExample {
             return (Criteria) this;
         }
 
-        public Criteria andStoreIdIsNull() {
-            addCriterion("store_id is null");
+        public Criteria andStoreNameIsNull() {
+            addCriterion("store_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andStoreIdIsNotNull() {
-            addCriterion("store_id is not null");
+        public Criteria andStoreNameIsNotNull() {
+            addCriterion("store_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStoreIdEqualTo(Integer value) {
-            addCriterion("store_id =", value, "storeId");
+        public Criteria andStoreNameEqualTo(String value) {
+            addCriterion("store_name =", value, "storeName");
             return (Criteria) this;
         }
 
-        public Criteria andStoreIdNotEqualTo(Integer value) {
-            addCriterion("store_id <>", value, "storeId");
+        public Criteria andStoreNameNotEqualTo(String value) {
+            addCriterion("store_name <>", value, "storeName");
             return (Criteria) this;
         }
 
-        public Criteria andStoreIdGreaterThan(Integer value) {
-            addCriterion("store_id >", value, "storeId");
+        public Criteria andStoreNameGreaterThan(String value) {
+            addCriterion("store_name >", value, "storeName");
             return (Criteria) this;
         }
 
-        public Criteria andStoreIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("store_id >=", value, "storeId");
+        public Criteria andStoreNameGreaterThanOrEqualTo(String value) {
+            addCriterion("store_name >=", value, "storeName");
             return (Criteria) this;
         }
 
-        public Criteria andStoreIdLessThan(Integer value) {
-            addCriterion("store_id <", value, "storeId");
+        public Criteria andStoreNameLessThan(String value) {
+            addCriterion("store_name <", value, "storeName");
             return (Criteria) this;
         }
 
-        public Criteria andStoreIdLessThanOrEqualTo(Integer value) {
-            addCriterion("store_id <=", value, "storeId");
+        public Criteria andStoreNameLessThanOrEqualTo(String value) {
+            addCriterion("store_name <=", value, "storeName");
             return (Criteria) this;
         }
 
-        public Criteria andStoreIdIn(List<Integer> values) {
-            addCriterion("store_id in", values, "storeId");
+        public Criteria andStoreNameLike(String value) {
+            addCriterion("store_name like", value, "storeName");
             return (Criteria) this;
         }
 
-        public Criteria andStoreIdNotIn(List<Integer> values) {
-            addCriterion("store_id not in", values, "storeId");
+        public Criteria andStoreNameNotLike(String value) {
+            addCriterion("store_name not like", value, "storeName");
             return (Criteria) this;
         }
 
-        public Criteria andStoreIdBetween(Integer value1, Integer value2) {
-            addCriterion("store_id between", value1, value2, "storeId");
+        public Criteria andStoreNameIn(List<String> values) {
+            addCriterion("store_name in", values, "storeName");
             return (Criteria) this;
         }
 
-        public Criteria andStoreIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("store_id not between", value1, value2, "storeId");
+        public Criteria andStoreNameNotIn(List<String> values) {
+            addCriterion("store_name not in", values, "storeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreNameBetween(String value1, String value2) {
+            addCriterion("store_name between", value1, value2, "storeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoreNameNotBetween(String value1, String value2) {
+            addCriterion("store_name not between", value1, value2, "storeName");
             return (Criteria) this;
         }
 
@@ -711,6 +721,126 @@ public class ProductExample {
 
         public Criteria andCommentNotBetween(String value1, String value2) {
             addCriterion("`comment` not between", value1, value2, "comment");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShowIsNull() {
+            addCriterion("is_show is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShowIsNotNull() {
+            addCriterion("is_show is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShowEqualTo(Boolean value) {
+            addCriterion("is_show =", value, "isShow");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShowNotEqualTo(Boolean value) {
+            addCriterion("is_show <>", value, "isShow");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShowGreaterThan(Boolean value) {
+            addCriterion("is_show >", value, "isShow");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShowGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_show >=", value, "isShow");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShowLessThan(Boolean value) {
+            addCriterion("is_show <", value, "isShow");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShowLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_show <=", value, "isShow");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShowIn(List<Boolean> values) {
+            addCriterion("is_show in", values, "isShow");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShowNotIn(List<Boolean> values) {
+            addCriterion("is_show not in", values, "isShow");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShowBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_show between", value1, value2, "isShow");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsShowNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_show not between", value1, value2, "isShow");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelIsNull() {
+            addCriterion("is_del is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelIsNotNull() {
+            addCriterion("is_del is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelEqualTo(Boolean value) {
+            addCriterion("is_del =", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelNotEqualTo(Boolean value) {
+            addCriterion("is_del <>", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelGreaterThan(Boolean value) {
+            addCriterion("is_del >", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_del >=", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelLessThan(Boolean value) {
+            addCriterion("is_del <", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_del <=", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelIn(List<Boolean> values) {
+            addCriterion("is_del in", values, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelNotIn(List<Boolean> values) {
+            addCriterion("is_del not in", values, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_del between", value1, value2, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_del not between", value1, value2, "isDel");
             return (Criteria) this;
         }
     }
