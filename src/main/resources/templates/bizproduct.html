@@ -60,12 +60,16 @@
         }
 
         function  create() {
-            $('insert_modal').modal('show');
+            $('#insert_modal').modal('show');
         }
 
         function save(id) {
             $.get("/bizManage/getProductForSave",{"saveId":id},function (data) {
-                $('modify_modal').modal('show');
+                document.getElementById("saveProductName").value=data.name;
+                document.getElementById("saveStoreName").value=data.storeName;
+                document.getElementById("saveType").value=data.type;
+                document.getElementById("saveDescription").value=data.description;
+                $('#modify_modal').modal('show');
             })
         }
 
@@ -128,10 +132,10 @@
             <div class="modal-body">
                 <form class="navbar-form navbar-left" role="search">
                     <div class="form-group">
-                        <label>商品名</label><input type="text" class="form-control" name="productName"  th:value="${product.name}"/>
+                        <label>商品名</label><input type="text" class="form-control" id="saveProductName"/>
                     </div>
                     <div class="form-group">
-                        <label>店铺名</label><input type="text" class="form-control" name="storeName" th:value="${product.storeName}"/>
+                        <label>店铺名</label><input type="text" class="form-control" id="saveStoreName"/>
                     </div>
                     <div class="form-group">
                         <div>
@@ -145,10 +149,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>商品类型</label><input type="text" class="form-control" name="type" th:value="${product.type}"/>
+                        <label>商品类型</label><input type="text" class="form-control" id="saveType" />
                     </div>
                     <div class="form-group">
-                        <label>商品描述</label><input type="text" class="form-control" name="description" th:value="${product.description}"/>
+                        <label>商品描述</label><input type="text" class="form-control" id="saveDescription"/>
                     </div>
                 </form>
             </div>
@@ -194,8 +198,8 @@
                     <td th:text="${product.type}"></td>
                     <td th:text="${product.price}"></td>
                     <td>
-                        <button type="button" class="btn btn-default btn-warning" th:onclick="'save('${product.id}')'">修改</button>
-                        <button type="button" class="btn btn-default btn-danger" th:onclick="'del('${product.id}')'">删除</button>
+                        <button type="button" class="btn btn-default btn-warning" th:onclick="'save('+${product.id}+')'">修改</button>
+                        <button type="button" class="btn btn-default btn-danger" th:onclick="del(${product.id})">删除</button>
                     </td>
                 </tr>
                 </tbody>

@@ -20,7 +20,7 @@ public class ProductService {
         List<Product> productList;
         ProductExample productExample=new ProductExample();
         ProductExample.Criteria criteria=productExample.createCriteria();
-        criteria.andIsDelEqualTo(true);
+        criteria.andIsDelEqualTo(false);
         productExample.or(criteria);
         productList=productDAO.selectByExample(productExample);
         return  productList;
@@ -31,7 +31,7 @@ public class ProductService {
         ProductExample productExample=new ProductExample();
         ProductExample.Criteria criteria=productExample.createCriteria();
         criteria.andTypeEqualTo(type);
-        criteria.andIsDelEqualTo(true);
+        criteria.andIsDelEqualTo(false);
         productExample.or(criteria);
         productList=productDAO.selectByExample(productExample);
         return  productList;

@@ -8,6 +8,7 @@ import com.deng.mall.utils.StrUntils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.jws.WebParam;
@@ -42,14 +43,12 @@ public class BizManageController {
     }
 
     @RequestMapping("/getProductForSave")
-    public  ModelAndView getProductForSave(String saveId){
+    public @ResponseBody Product getProductForSave(String saveId){
         ModelAndView mv=new ModelAndView();
         Product product;
         product = productService.getProductById(saveId);
-        mv.addObject("product",product);
-        mv.setViewName("bizproduct.html");
 
-        return mv;
+        return product;
     }
 
 
