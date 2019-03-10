@@ -11,10 +11,16 @@ public class OrderDetail implements Serializable {
 
     private Integer productId;
 
+    /**
+     * 消费金额
+     */
     private Long sumConsume;
 
-    private Byte status;
+    private String status;
 
+    /**
+     * 购买数量
+     */
     private Long countConsume;
 
     private static final long serialVersionUID = 1L;
@@ -43,11 +49,11 @@ public class OrderDetail implements Serializable {
         this.sumConsume = sumConsume;
     }
 
-    public Byte getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

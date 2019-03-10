@@ -1,31 +1,20 @@
-
-/**
- * 全选和取消
- * @param  allBoxId 全选框的id
- * @param  多选框的name
- */
-function checkOrCancelAll(allBoxId,boxName){
-        var isAllSelect=document.getElementById(allBoxId).checked;
-        console.log(isAllSelect)
-        var allCheck=document.getElementsByName(productBoxName);
-        if(isAllSelect){
-            for(var i=0;i<allCheck.length;i++){
-                allCheck[i].checked=true;
-            }
-        }else{
-            for(var i=0;i<allCheck.length;i++){
-                allCheck[i].checked=false;
-            }
+function checkOrCancelAll(){
+    var isAllSelect=document.getElementById("select-all").checked;
+    console.log(isAllSelect)
+    var allCheck=document.getElementsByName("product-name");
+    if(isAllSelect){
+        for(var i=0;i<allCheck.length;i++){
+            allCheck[i].checked=true;
         }
+    }else{
+        for(var i=0;i<allCheck.length;i++){
+            allCheck[i].checked=false;
+        }
+    }
 }
 
-/**
- * 获取选择框的id
- * @param  多选框的name
- * @return  id字符串以,号分割
- */
-function getCheckBoxId(boxName) {
-    var allCheck=document.getElementsByName(boxName);
+function getCheckBoxId() {
+    var allCheck=document.getElementsByName("product-name");
     var checkBoxIds=new Array();
     for (var i=0;i<allCheck.length;i++){
         if (allCheck[i].checked){
@@ -34,6 +23,39 @@ function getCheckBoxId(boxName) {
     }
     var idStr=checkBoxIds.join(',');
     return idStr;
+}
+
+function batchDelete() {
+    var idStr=getCheckBoxId();
+    $.post("/product/batchDelete",{"idStr":idStr});
+}
+
+function del(id) {
+    $.post("/product/delete",{"deleteId":id})
+}
+
+function downShelf() {
+    var idStr=getCheckBoxId();
+    $.post("/product/downShelf",{"idStr":idStr});
+}
+
+function upShelf() {
+    var  idStr=getCheckBoxId();
+    $.post("/product/upShelf",{"idStr":idStr});
+}
+
+function  create() {
+    $('#insert_modal').modal('show');
+}
+
+function save(id) {
+    $.get("/product/getProductForSave",{"saveId":id},function (data) {
+        document.getElementById("saveProductName").value=data.name;
+        document.getElementById("saveStoreName").value=data.storeName;
+        document.getElementById("saveType").value=data.type;
+        document.getElementById("saveDescription").value=data.description;
+        $('#modify_modal').modal('show');
+    })
 }
 
 
@@ -58,24 +80,12 @@ function checkFileExt(filename) {
     }
 }
 
-
-/**
- * 添加图片
- * @param   上传图片组件的id
- * @param   controller 的url
- * @param   可选属性 id/name
- */
-function toAddImgs(imgs,url,isId) {
+function toAddImgs(id,url) {
     var form = $('#uploadForm')[0];
 
     var formData = new FormData(form);
 
-    if (isId){
-        var fileNames = document.getElementById(imgs).value;
-    } else {
-        var fileNames = document.getElementsByName(imgs).value;
-    }
-
+    var fileNames = document.getElementById(id).value;
 
     if (fileNames.length == 0) {
         alert("请选择文件");

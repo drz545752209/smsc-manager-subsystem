@@ -71,12 +71,6 @@
             <version>1.0.0-beta2</version>
         </dependency>
 
-        <!-- 热部署 -->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-                  <!--<artifactId>spring-boot-devtools</artifactId>-->
-            <!--<optional>true</optional>-->
-        <!--</dependency>-->
 
         <!--gql-->
         <dependency>
@@ -84,6 +78,13 @@
             <artifactId>graphql-java</artifactId>
             <version>11.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.hlju</groupId>
+            <artifactId>mall</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
 
     </dependencies>
 

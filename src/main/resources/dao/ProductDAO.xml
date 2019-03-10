@@ -312,4 +312,7 @@
       is_del = #{isDel,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getTypeList" resultType="java.util.Map">
+    select type from product group by type
+  </select>
 </mapper>

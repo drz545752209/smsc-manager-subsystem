@@ -7,53 +7,126 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service("productService")
 public class ProductService {
-    final static Logger logger= LoggerFactory.getLogger(ProductService.class);
+    final static Logger logger = LoggerFactory.getLogger(ProductService.class);
     @Autowired
     ProductDAO productDAO;
 
-    public List<Product> getAllProduct(){
+    public List<Product> getAllProduct(long pageNum,int pageSize) {
         List<Product> productList;
-        ProductExample productExample=new ProductExample();
-        ProductExample.Criteria criteria=productExample.createCriteria();
+        ProductExample productExample = new ProductExample();
+        ProductExample.Criteria criteria = productExample.createCriteria();
         criteria.andIsDelEqualTo(false);
         productExample.or(criteria);
-        productList=productDAO.selectByExample(productExample);
-        return  productList;
+        productExample.setOffset(pageNum*pageSize);
+        productExample.setLimit(pageSize);
+        productList = productDAO.selectByExample(productExample);
+        return productList;
     }
 
-    public List<Product> getProductByType(String type){
+    public List<Product> getProductByType(String type,long pageNum,int pageSize) {
         List<Product> productList;
-        ProductExample productExample=new ProductExample();
-        ProductExample.Criteria criteria=productExample.createCriteria();
+        ProductExample productExample = new ProductExample();
+        ProductExample.Criteria criteria = productExample.createCriteria();
         criteria.andTypeEqualTo(type);
         criteria.andIsDelEqualTo(false);
         productExample.or(criteria);
-        productList=productDAO.selectByExample(productExample);
-        return  productList;
+        productList = productDAO.selectByExample(productExample);
+        return productList;
     }
 
-    public Product getProductById(String id){
-        Product product=productDAO.selectByPrimaryKey(Integer.valueOf(id));
-        if (product.getIsDel()){
+    public Product getProductById(String id) {
+        Product product = productDAO.selectByPrimaryKey(Integer.valueOf(id));
+        if (product.getIsDel()) {
             return null;
-        }else {
+        } else {
             return product;
         }
     }
 
-    public void batchDeleteProduct(List<Integer> ids){
-        ProductExample productExample=new ProductExample();
-        ProductExample.Criteria criteria=productExample.createCriteria();
+    public List<Product> getProductListById(List<Integer> ids) {
+        ProductExample productExample = new ProductExample();
+        ProductExample.Criteria criteria = productExample.createCriteria();
         criteria.andIdIn(ids);
         productExample.or(criteria);
-        int deleteResult=productDAO.deleteByExample(productExample);
-        logger.info("batch delete product num []",deleteResult);
+        List<Product> productList = productDAO.selectByExample(productExample);
+        return productList;
     }
 
+    public List<Product> getProductListByIsShow(String isShow,long pageNum,int pageSize){
+        List<Product> productList;
+        ProductExample productExample = new ProductExample();
+        ProductExample.Criteria criteria = productExample.createCriteria();
+        if ("1".equals(isShow)){
+            criteria.andIsShowEqualTo(true);
+        }else {
+            criteria.andIsShowEqualTo(false);
+        }
+        productExample.or(criteria);
+        productList=productDAO.selectByExample(productExample);
+        return productList;
+    }
+
+
+    @Transactional
+    public void batchDeleteProduct(List<Integer> ids) {
+        List<Product> productList = getProductListById(ids);
+        try{
+            for (Product product : productList) {
+                product.setIsDel(true);
+                productDAO.updateByPrimaryKey(product);
+            }
+            logger.info("batchDelete products ids:[]", ids.toString());
+        }catch (Exception e){
+            logger.error("batchDelete failed , roll back!!");
+        }
+    }
+
+    public int deleteProduct(String id) {
+        int result = productDAO.deleteByPrimaryKey(Integer.valueOf(id));
+        return result;
+    }
+
+    public List<String> getProductTypeList() {
+        List<String> typeList = productDAO.getTypeList();
+        return typeList;
+    }
+
+    @Transactional
+    public void batchUpShelf(List<Integer> ids) {
+        try {
+            List<Product> productList = getProductListById(ids);
+            for (Product product : productList) {
+                product.setIsShow(true);
+                productDAO.updateByPrimaryKey(product);
+            }
+            logger.info("batchUpShelf products ids:[]", ids.toString());
+        } catch (Exception e) {
+            logger.error("batchUpShelf failed , roll back!!");
+        }
+    }
+
+    @Transactional
+    public void batchDownShelf(List<Integer> ids) {
+        try {
+            List<Product> productList = getProductListById(ids);
+            for (Product product : productList) {
+                product.setIsShow(false);
+                productDAO.updateByPrimaryKey(product);
+            }
+            logger.info("batchDownShelf products ids:[]", ids.toString());
+        } catch (Exception e) {
+            logger.error("batchDownShelf failed , roll back!!");
+        }
+    }
+
+    public  void save(Product product){
+        productDAO.updateByPrimaryKey(product);
+    }
 
 }

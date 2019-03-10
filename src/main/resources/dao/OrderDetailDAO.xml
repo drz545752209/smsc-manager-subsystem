@@ -6,7 +6,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="sum_consume" jdbcType="BIGINT" property="sumConsume" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="count_consume" jdbcType="BIGINT" property="countConsume" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -112,7 +112,7 @@
     insert into order_detail (id, product_id, sum_consume, 
       `status`, count_consume)
     values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{sumConsume,jdbcType=BIGINT}, 
-      #{status,jdbcType=TINYINT}, #{countConsume,jdbcType=BIGINT})
+      #{status,jdbcType=VARCHAR}, #{countConsume,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.deng.mall.domain.OrderDetail">
     insert into order_detail
@@ -144,7 +144,7 @@
         #{sumConsume,jdbcType=BIGINT},
       </if>
       <if test="status != null">
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=VARCHAR},
       </if>
       <if test="countConsume != null">
         #{countConsume,jdbcType=BIGINT},
@@ -170,7 +170,7 @@
         sum_consume = #{record.sumConsume,jdbcType=BIGINT},
       </if>
       <if test="record.status != null">
-        `status` = #{record.status,jdbcType=TINYINT},
+        `status` = #{record.status,jdbcType=VARCHAR},
       </if>
       <if test="record.countConsume != null">
         count_consume = #{record.countConsume,jdbcType=BIGINT},
@@ -185,7 +185,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       product_id = #{record.productId,jdbcType=INTEGER},
       sum_consume = #{record.sumConsume,jdbcType=BIGINT},
-      `status` = #{record.status,jdbcType=TINYINT},
+      `status` = #{record.status,jdbcType=VARCHAR},
       count_consume = #{record.countConsume,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -201,7 +201,7 @@
         sum_consume = #{sumConsume,jdbcType=BIGINT},
       </if>
       <if test="status != null">
-        `status` = #{status,jdbcType=TINYINT},
+        `status` = #{status,jdbcType=VARCHAR},
       </if>
       <if test="countConsume != null">
         count_consume = #{countConsume,jdbcType=BIGINT},
@@ -213,7 +213,7 @@
     update order_detail
     set product_id = #{productId,jdbcType=INTEGER},
       sum_consume = #{sumConsume,jdbcType=BIGINT},
-      `status` = #{status,jdbcType=TINYINT},
+      `status` = #{status,jdbcType=VARCHAR},
       count_consume = #{countConsume,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>

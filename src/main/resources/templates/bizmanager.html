@@ -10,7 +10,7 @@
 
 
 function fresh(href){
-	document.getElementById("myframe").src="http://localhost:8080/bizManage/"+href;
+	document.getElementById("myframe").src="http://localhost:8080/"+href;
 }
 </script>
 
@@ -38,8 +38,7 @@ function fresh(href){
 						<span></span>商品管理
 					</h4>
 					<div class="list-item none">
-						<a href="javascript:fresh('product')">商品</a>
-						<a href=''>商品分类展示</a>
+						<a href="javascript:fresh('product/productList')">商品</a>
 					</div>
 				</li>
 				<li>
@@ -47,7 +46,7 @@ function fresh(href){
 						<span></span>订单管理
 					</h4>
 					<div class="list-item none">
-						<a href=''>订单查看</a> <a href=''>订单处理</a>
+						<a href="javascript:fresh('order/orderList')">订单查看</a> <a href=''>订单处理</a>
 					</div>
 				</li>
 				<li>
